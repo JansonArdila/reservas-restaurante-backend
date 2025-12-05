@@ -1,0 +1,150 @@
+const Reservation = require('../models/reservacion');
+
+const reservasController = {
+    // Crear nueva reserva
+    async crearReserva(req, res) {
+        try {
+            // Validaciones básicas
+            if (!req.body.customer_name || !req.body.customer_email) {
+                return res.status(400).json({
+                    error: 'Nombre y email son requeridos'
+                });
+            }
+
+            if (!req.body.reservation_date || !req.body.reservation_time) {
+                return res.status(400).json({
+                    error: 'Fecha y hora son requeridas'
+                });
+            }
+
+            if (!req.body.party_size || req.body.party_size < 1) {
+                return res.status(400).json({
+                    error: 'Número de personas inválido'
+                });
+            }
+
+            const reservation = await Reservation.create(req.body);
+            res.status(201).json({
+                success: true,
+                data: reservation,
+                message: 'Reserva creada exitosamente'
+            });
+        } catch (error) {
+            console.error('Error en crearReserva:', error);
+            res.status(500).json({
+                error: 'Error al crear la reserva',
+                details: error.message
+            });
+        }
+    },
+
+    // Obtener todas las reservas
+    async getAllReservations(req, res) {
+        try {
+            const reservations = await Reservation.getAll();
+            res.json({
+                success: true,
+                count: reservations.length,
+                data: reservations
+            });
+        } catch (error) {
+            console.error('Error en getAllReservations:', error);
+            res.status(500).json({
+                error: 'Error al obtener las reservas'
+            });
+        }
+    },
+
+    // Obtener reservas por fecha
+    async getReservationsByDate(req, res) {
+        try {
+            const { date } = req.params;
+            const reservations = await Reservation.getByDate(date);
+            res.json({
+                success: true,
+                count: reservations.length,
+                data: reservations
+            });
+        } catch (error) {
+            console.error('Error en getReservationsByDate:', error);
+            res.status(500).json({
+                error: 'Error al obtener las reservas por fecha'
+            });
+        }
+    },
+
+    // Obtener reserva por ID
+    async getReservationById(req, res) {
+        try {
+            const { id } = req.params;
+            const reservation = await Reservation.getById(id);
+
+            if (!reservation) {
+                return res.status(404).json({
+                    error: 'Reserva no encontrada'
+                });
+            }
+
+            res.json({
+                success: true,
+                data: reservation
+            });
+        } catch (error) {
+            console.error('Error en getReservationById:', error);
+            res.status(500).json({
+                error: 'Error al obtener la reserva'
+            });
+        }
+    },
+
+    // Actualizar reserva
+    async actualizarReserva(req, res) {
+        try {
+            const { id } = req.params;
+            const reservation = await Reservation.update(id, req.body);
+
+            if (!reservation) {
+                return res.status(404).json({
+                    error: 'Reserva no encontrada'
+                });
+            }
+
+            res.json({
+                success: true,
+                data: reservation,
+                message: 'Reserva actualizada exitosamente'
+            });
+        } catch (error) {
+            console.error('Error en actualizarReserva:', error);
+            res.status(500).json({
+                error: 'Error al actualizar la reserva'
+            });
+        }
+    },
+
+    // Eliminar reserva
+    async borrarReserva(req, res) {
+        try {
+            const { id } = req.params;
+            const reservation = await Reservation.delete(id);
+
+            if (!reservation) {
+                return res.status(404).json({
+                    error: 'Reserva no encontrada'
+                });
+            }
+
+            res.json({
+                success: true,
+                message: 'Reserva eliminada exitosamente'
+            });
+        } catch (error) {
+            console.error('Error en borrarReserva:', error);
+            res.status(500).json({
+                error: 'Error al eliminar la reserva'
+            });
+        }
+    }
+};
+
+module.exports = reservasController;
