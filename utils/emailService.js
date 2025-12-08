@@ -1,17 +1,23 @@
-const { Resend } = require("resend");
+const BrevoApi = require('sib-api-v3-sdk');
 
-// Inicializa Resend con tu API Key desde variables de entorno
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Configura la API Key de Brevo
+BrevoApi.ApiClient.instance.authentications['api-key'].apiKey = process.env.BREVO_API_KEY;
 
+// Función para enviar el correo
 async function sendMail(to, subject, html) {
     try {
-        const response = await resend.emails.send({
-            from: "Reservas Restaurante <onboarding@resend.dev>",
-            to,
-            subject,
-            html
+        const apiInstance = new BrevoApi.TransactionalEmailsApi();
+        const sender = { email: 'reservas@tudominio.com' }; // Aquí va tu dirección de correo de Brevo
+
+        const sendSmtpEmail = new BrevoApi.SendSmtpEmail({
+            to: [{ email: to }], // El destinatario
+            sender: sender, // El remitente
+            subject: subject, // El asunto
+            htmlContent: html, // El contenido HTML
         });
 
+        // Enviar el correo
+        const response = await apiInstance.sendTransacEmail(sendSmtpEmail);
         console.log("Correo enviado:", response);
         return response;
     } catch (error) {
