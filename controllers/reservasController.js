@@ -1,4 +1,15 @@
 const Reservation = require('../models/reservacion');
+const nodemailer = require('nodemailer');
+const { reservationConfirmationEmail } = require('../utils/emailTemplates');
+
+// Configuración de Nodemailer
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+    }
+});
 
 const reservasController = {
     // Crear nueva reserva
@@ -24,6 +35,15 @@ const reservasController = {
             }
 
             const reservation = await Reservation.create(req.body);
+
+            await transporter.sendMail({
+                from: `"Restaurante" <${process.env.EMAIL_USER}>`,
+                to: reservation.customer_email,
+                subject: 'Confirmación de tu reserva',
+                html: reservationConfirmationEmail(reservation)
+            });
+
+
             res.status(201).json({
                 success: true,
                 data: reservation,

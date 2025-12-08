@@ -11,7 +11,7 @@ class Reservacion {
             party_size,
             table_number,
             special_requests,
-            status = 'pending'
+            status = 'confirmed'
         } = reservationData;
 
         const query = `

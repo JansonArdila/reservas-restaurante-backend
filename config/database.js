@@ -2,7 +2,10 @@ const dns = require('dns');
 const { Pool } = require('pg');
 require('dotenv').config();
 
-console.log("Conectando a:", process.env.DATABASE_URL);
+
+// CONEXIÓN DEPLOY
+
+/*console.log("Conectando a:", process.env.DATABASE_URL);
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
@@ -18,11 +21,12 @@ const pool = new Pool({
     } catch (err) {
         console.error("❌ Error de conexión:", err.message);
     }
-})();
+})();*/
 
+// CONEXIÓN LOCAL
 
-/*const pool = new Pool({
-    /*user: process.env.DB_USER,
+const pool = new Pool({
+    user: process.env.DB_USER,
     host: process.env.DB_HOST,
     database: process.env.DB_NAME,
     password: process.env.DB_PASSWORD,
@@ -37,6 +41,6 @@ pool.connect((err, client, release) => {
         console.log('Connected to PostgreSQL database');
         release();
     }
-});*/
+});
 
 module.exports = pool;
