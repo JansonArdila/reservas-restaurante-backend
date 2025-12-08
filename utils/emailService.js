@@ -1,4 +1,4 @@
-const BrevoApi = require('sib-api-v3-sdk');
+const BrevoApi = require('@getbrevo/brevo');
 
 // Configura la API Key de Brevo
 BrevoApi.ApiClient.instance.authentications['api-key'].apiKey = process.env.BREVO_API_KEY;
