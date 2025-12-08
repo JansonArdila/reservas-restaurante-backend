@@ -7,14 +7,16 @@ BrevoApi.ApiClient.instance.authentications['api-key'].apiKey = process.env.BREV
 async function sendMail(to, subject, html) {
     try {
         const apiInstance = new BrevoApi.TransactionalEmailsApi();
-        const sender = { email: 'juice.aestheticscol@gmail.com', name: 'Reservas Presik' };
+        const sender = { name: 'Reservas Presik ', email: 'juice.aestheticscol@gmail.com' };
 
         const sendSmtpEmail = new BrevoApi.SendSmtpEmail({
+            sender: sender,// El remitente
             to: [{ email: to }], // El destinatario
-            sender: sender, // El remitente
             subject: subject, // El asunto
             htmlContent: html, // El contenido HTML
         });
+
+        console.log("Enviando un correo con los siguientes datos", sendSmtpEmail);
 
         // Enviar el correo
         const response = await apiInstance.sendTransacEmail(sendSmtpEmail);
