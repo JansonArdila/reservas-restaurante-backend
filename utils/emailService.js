@@ -6,9 +6,9 @@ if (!apiKey) {
     throw new Error('La API Key de Brevo no está definida en el archivo .env');
 }
 
-// Crear una instancia de la API con la autenticación correcta
-const apiInstance = new BrevoApi.TransactionalEmailsApi();
-apiInstance.setApiKey('api-key', apiKey);  // Configura la clave API
+// Configura la API
+BrevoApi.ApiClient.instance.authentications['api-key'].apiKey = apiKey;
+const apiInstance = new BrevoApi.TransactionalEmailsApi();  // Instacia
 
 // Función para enviar el correo
 async function sendMail(to, subject, html) {
