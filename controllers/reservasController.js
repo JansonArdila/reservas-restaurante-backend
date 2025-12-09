@@ -44,12 +44,12 @@ const reservasController = {
                 }
             });
 
-            /*await transporter.sendMail({
+            await transporter.sendMail({
                 from: `"Restaurante" <${process.env.EMAIL_USER}>`,
                 to: reservation.customer_email,
                 subject: "Confirmación de tu reserva",
                 html: reservationConfirmationEmail(reservation)
-            });*/
+            });
 
             res.status(201).json({
                 success: true,
