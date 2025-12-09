@@ -37,7 +37,7 @@ const reservasController = {
                 });
             }
 
-            //const reservation = await Reservation.create(req.body);
+            const reservation = await Reservation.create(req.body);
 
             await transporter.sendMail({
                 from: `"Restaurante" <${process.env.EMAIL_USER}>`,
