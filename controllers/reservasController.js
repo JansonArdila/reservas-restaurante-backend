@@ -4,7 +4,7 @@ const nodemailer = require("nodemailer");
 const { MailtrapTransport } = require("mailtrap");
 const { reservationConfirmationEmail } = require('../utils/emailTemplates');
 
-
+// Transporter
 const transporter = nodemailer.createTransport({
     host: "live.smtp.mailtrap.io",
     port: 587,
