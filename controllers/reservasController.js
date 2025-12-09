@@ -7,6 +7,9 @@ const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,
     secure: false,
+    tls: {
+        rejectUnauthorized: false // Render sometimes needs this
+    },
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
@@ -39,12 +42,12 @@ const reservasController = {
 
             const reservation = await Reservation.create(req.body);
 
-            /*await transporter.sendMail({
+            await transporter.sendMail({
                 from: `"Restaurante" <${process.env.EMAIL_USER}>`,
                 to: reservation.customer_email,
                 subject: "Confirmación de tu reserva",
                 html: "hola"
-            });*/
+            });
 
             res.status(201).json({
                 success: true,
