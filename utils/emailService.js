@@ -1,4 +1,4 @@
-const BrevoApi = require('sib-api-v3-sdk');
+/*const BrevoApi = require('sib-api-v3-sdk');
 
 // Configura la API Key de Brevo
 const apiKey = process.env.BREVO_API_KEY;
@@ -15,8 +15,8 @@ async function sendMail(to, subject, html) {
     try {
         // Configurar el remitente
         const sender = {
-            email: 'juice.aestheticscol@gmail.com',  // Asegúrate de que este correo esté verificado
-            name: 'Prueba PRESIK'
+            email: 'hastydc@gmail.com',
+            name: 'PruebasPresik'
         };
 
         const sendSmtpEmail = new BrevoApi.SendSmtpEmail({
@@ -39,4 +39,4 @@ async function sendMail(to, subject, html) {
 }
 
 module.exports = { sendMail };
-
+*/

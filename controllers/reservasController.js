@@ -1,6 +1,15 @@
 const Reservation = require('../models/reservacion');
 const { sendMail } = require('../utils/emailService');
+const nodemailer = require("nodemailer");
 const { reservationConfirmationEmail } = require('../utils/emailTemplates');
+
+const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+    }
+});
 
 
 const reservasController = {
@@ -28,7 +37,14 @@ const reservasController = {
 
             const reservation = await Reservation.create(req.body);
 
-            (async () => {
+            await transporter.sendMail({
+                from: `"Restaurante" <${process.env.EMAIL_USER}>`,
+                to: reservation.customer_email,
+                subject: "Confirmación de tu reserva",
+                html: reservationConfirmationEmail(reservation)
+            });
+
+            /*(async () => {
                 try {
                     const html = reservationConfirmationEmail(reservation);
                     await sendMail(
@@ -39,7 +55,7 @@ const reservasController = {
                 } catch (emailError) {
                     console.error("Error enviando correo:", emailError);
                 }
-            })();
+            })();*/
 
 
             res.status(201).json({
