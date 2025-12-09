@@ -46,7 +46,19 @@ const reservasController = {
                 from: `"Restaurante" <${process.env.EMAIL_USER}>`,
                 to: reservation.customer_email,
                 subject: "Confirmación de tu reserva",
-                html: "hola"
+                html: `
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <div class="container">
+       test
+    </div>
+  </body>
+</html>
+`
             });
 
             res.status(201).json({
