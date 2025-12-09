@@ -37,6 +37,14 @@ const reservasController = {
 
             const reservation = await Reservation.create(req.body);
 
+            await transporter.verify((error, success) => {
+                if (error) {
+                    console.error("SMTP Connection failed:", error);
+                } else {
+                    console.log("SMTP Connection OK");
+                }
+            });
+
             await transporter.sendMail({
                 from: `"Restaurante" <${process.env.EMAIL_USER}>`,
                 to: reservation.customer_email,
