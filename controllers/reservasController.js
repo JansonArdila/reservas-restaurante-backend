@@ -35,28 +35,14 @@ const reservasController = {
                 });
             }
 
-            const reservation = await Reservation.create(req.body);
+            //const reservation = await Reservation.create(req.body);
 
             await transporter.sendMail({
                 from: `"Restaurante" <${process.env.EMAIL_USER}>`,
                 to: reservation.customer_email,
                 subject: "Confirmación de tu reserva",
-                html: reservationConfirmationEmail(reservation)
+                html: "hola"
             });
-
-            /*(async () => {
-                try {
-                    const html = reservationConfirmationEmail(reservation);
-                    await sendMail(
-                        reservation.customer_email,
-                        "Confirmación de reserva",
-                        html
-                    );
-                } catch (emailError) {
-                    console.error("Error enviando correo:", emailError);
-                }
-            })();*/
-
 
             res.status(201).json({
                 success: true,
