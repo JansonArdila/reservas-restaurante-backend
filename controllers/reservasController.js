@@ -4,12 +4,7 @@ const nodemailer = require("nodemailer");
 const { reservationConfirmationEmail } = require('../utils/emailTemplates');
 
 const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false,
-    tls: {
-        rejectUnauthorized: false // Render sometimes needs this
-    },
+    service: "gmail",
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
@@ -46,19 +41,7 @@ const reservasController = {
                 from: `"Restaurante" <${process.env.EMAIL_USER}>`,
                 to: reservation.customer_email,
                 subject: "Confirmación de tu reserva",
-                html: `
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-  </head>
-  <body>
-    <div class="container">
-       test
-    </div>
-  </body>
-</html>
-`
+                html: reservationConfirmationEmail(reservation)
             });
 
             res.status(201).json({
