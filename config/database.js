@@ -7,7 +7,7 @@ require('dotenv').config();
 
 console.log("Conectando a:", process.env.DATABASE_URL);
 
-/*const pool = new Pool({
+const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: { rejectUnauthorized: false }, // necesario para Supabase
 });
@@ -21,11 +21,11 @@ console.log("Conectando a:", process.env.DATABASE_URL);
     } catch (err) {
         console.error("❌ Error de conexión:", err.message);
     }
-})();*/
+})();
 
 // CONEXIÓN LOCAL
 
-const pool = new Pool({
+/*const pool = new Pool({
     user: process.env.DB_USER,
     host: process.env.DB_HOST,
     database: process.env.DB_NAME,
@@ -41,6 +41,6 @@ pool.connect((err, client, release) => {
         console.log('Connected to PostgreSQL database');
         release();
     }
-});
+});*/
 
 module.exports = pool;
