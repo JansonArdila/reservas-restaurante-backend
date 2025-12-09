@@ -1,17 +1,15 @@
 const Reservation = require('../models/reservacion');
 const { sendMail } = require('../utils/emailService');
 const nodemailer = require("nodemailer");
+const { MailtrapTransport } = require("mailtrap");
 const { reservationConfirmationEmail } = require('../utils/emailTemplates');
 
-const transporter = nodemailer.createTransport({
-    host: "smtp.mailtrap.io",
-    port: 2525,
-    secure: false,
-    auth: {
-        user: "yeison149@hotmail.com",
-        pass: "Janson.060915"
-    }
-});
+
+const transporter = Nodemailer.createTransport(
+    MailtrapTransport({
+        token: "a88b34b8fe519748e16fa8185f24cab8",
+    })
+);
 
 const reservasController = {
     // Crear nueva reserva
@@ -46,12 +44,12 @@ const reservasController = {
                 }
             });
 
-            await transporter.sendMail({
+            /*await transporter.sendMail({
                 from: `"Restaurante" <${process.env.EMAIL_USER}>`,
                 to: reservation.customer_email,
                 subject: "Confirmación de tu reserva",
                 html: reservationConfirmationEmail(reservation)
-            });
+            });*/
 
             res.status(201).json({
                 success: true,
