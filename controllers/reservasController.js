@@ -5,11 +5,14 @@ const { MailtrapTransport } = require("mailtrap");
 const { reservationConfirmationEmail } = require('../utils/emailTemplates');
 
 
-const transporter = nodemailer.createTransport(
-    MailtrapTransport({
-        token: "a88b34b8fe519748e16fa8185f24cab8",
-    })
-);
+const transporter = nodemailer.createTransport({
+    host: "live.smtp.mailtrap.io",
+    port: 587,
+    auth: {
+        user: "api",
+        pass: "8b6b05925acaafae8b2677f0756fa1dc"
+    }
+});
 
 const reservasController = {
     // Crear nueva reserva
