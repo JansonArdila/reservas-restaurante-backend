@@ -5,7 +5,7 @@ const { MailtrapTransport } = require("mailtrap");
 const { reservationConfirmationEmail } = require('../utils/emailTemplates');
 
 
-const transporter = Nodemailer.createTransport(
+const transporter = nodemailer.createTransport(
     MailtrapTransport({
         token: "a88b34b8fe519748e16fa8185f24cab8",
     })
