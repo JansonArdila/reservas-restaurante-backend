@@ -37,6 +37,7 @@ const reservasController = {
             const reservation = await Reservation.create(req.body);
 
             await transporter.verify((error, success) => {
+                console.error(success, error)
                 if (error) {
                     console.error("SMTP Connection failed:", error);
                 } else {
