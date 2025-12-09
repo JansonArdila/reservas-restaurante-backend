@@ -4,13 +4,14 @@ const nodemailer = require("nodemailer");
 const { reservationConfirmationEmail } = require('../utils/emailTemplates');
 
 const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp.mailtrap.io",
+    port: 2525,
+    secure: false,
     auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
+        user: "yeison149@hotmail.com",
+        pass: "jd.060915"
     }
 });
-
 
 const reservasController = {
     // Crear nueva reserva
