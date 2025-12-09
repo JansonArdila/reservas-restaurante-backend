@@ -39,12 +39,12 @@ const reservasController = {
 
             const reservation = await Reservation.create(req.body);
 
-            await transporter.sendMail({
+            /*await transporter.sendMail({
                 from: `"Restaurante" <${process.env.EMAIL_USER}>`,
                 to: reservation.customer_email,
                 subject: "Confirmación de tu reserva",
                 html: "hola"
-            });
+            });*/
 
             res.status(201).json({
                 success: true,
