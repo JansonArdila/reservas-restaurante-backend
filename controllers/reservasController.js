@@ -39,7 +39,7 @@ const reservasController = {
 
             const reservation = await Reservation.create(req.body);
 
-            await transporter.verify((error, success) => {
+            /*await transporter.verify((error, success) => {
                 console.error(success, error)
                 if (error) {
                     console.error("SMTP Connection failed:", error);
@@ -53,7 +53,7 @@ const reservasController = {
                 to: reservation.customer_email,
                 subject: "Confirmación de tu reserva",
                 html: reservationConfirmationEmail(reservation)
-            });
+            });*/
 
             res.status(201).json({
                 success: true,
