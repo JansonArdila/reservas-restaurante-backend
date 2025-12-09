@@ -55,6 +55,8 @@ const reservasController = {
                 html: reservationConfirmationEmail(reservation)
             });*/
 
+            // La implimentación de la gestión de emails para todos los servicios es con dominio propio
+
             res.status(201).json({
                 success: true,
                 data: reservation,
